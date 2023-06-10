@@ -35,6 +35,21 @@ create table if not exists mydb.matches
     foreign key (tourId) references tours(id)
 );
 
+
+create table if not exists mydb.news
+(
+    id int auto_increment not null primary key,
+    title varchar(50) not null,
+    description varchar(255),
+    sportId int not null,
+    tourId int not null,
+    matchId int not null,
+    createdAt timestamp not null default current_timestamp,
+    foreign key (sportId) references sports(id),
+    foreign key (tourId) references tours(id),
+    foreign key (matchId) references matches(id)
+);
+
 -- seed data
 insert ignore into mydb.sports (id, name) values (1, 'Cricket');
 insert ignore into mydb.sports (id, name) values (2, 'Football');
@@ -56,6 +71,17 @@ insert ignore into mydb.matches (name, tourId, format, startTime, endTime) value
 insert ignore into mydb.matches (name, tourId, format, startTime, endTime) values ('IND vs WI', 3, 'ODI', '2023-06-14 10:00:00', '2023-06-14 23:00:00');
 insert ignore into mydb.matches (name, tourId, format, startTime, endTime) values ('KER vs JFC', 4, 'soccer', '2022-04-09 18:00:00', '2022-04-09 23:00:00');
 
+
+insert ignore into mydb.news (title, description, sportId, tourId, matchId) values ('Indian Premier League (IPL) 2023', 'Indian Premier League, 2023, GT vs RCB match on 09th April 2023 6pm onwards', 1, 1, 1);
+insert ignore into mydb.news (title, description, sportId, tourId, matchId) values ('Indian Premier League (IPL) 2023', 'Indian Premier League, 2023 CSK vs MI match on 10th April 2023 6pm onwards', 1, 1, 2);
+insert ignore into mydb.news (title, description, sportId, tourId, matchId) values ('Indian Premier League (IPL) 2023', 'Indian Premier League, 2023 LSG vs KXIP match on 11th April 2023 6pm onwards', 1, 1, 3);
+insert ignore into mydb.news (title, description, sportId, tourId, matchId) values ('Indian Premier League (IPL) 2023', 'Indian Premier League, 2023 RR vs SRH match on 12th April 2023 6pm onwards', 1, 1, 4);
+insert ignore into mydb.news (title, description, sportId, tourId, matchId) values ('Indian Super League (ISL) 2023', 'India Super League, 2023 BLR vs BEN match on 29th April 2023 6pm onwards', 2, 2, 5);
+insert ignore into mydb.news (title, description, sportId, tourId, matchId) values ('Indian Super League (ISL) 2023', 'India Super League, 2023 ATK vs MCFC match on 21th April 2023 6pm onwards', 2, 2, 6);
+insert ignore into mydb.news (title, description, sportId, tourId, matchId) values ('Indian Super League (ISL) 2023', 'India Super League, 2023 KER vs JFC match on 22th April 2023 6pm onwards', 2, 2, 7);
+insert ignore into mydb.news (title, description, sportId, tourId, matchId) values ('India Tour of West Indies, 2023', 'India Tour of West Indies, 2023 IND vs WI match on 10th April 2023 10am onwards', 1, 3, 8);
+insert ignore into mydb.news (title, description, sportId, tourId, matchId) values ('India Tour of West Indies, 2023', 'India Tour of West Indies, 2023 IND vs WI match on 12th April 2023 10am onwards', 1, 3, 9);
+insert ignore into mydb.news (title, description, sportId, tourId, matchId) values ('English Premier League (EPL), 2022', 'English Premier League, 2022 KER vs JFC match on 04th September 2022 6pm onwards', 2, 4, 11);
 
 -- Creating an index over name column for increasing the performance of /tour/matches Endpoint.
 ALTER TABLE tours ADD INDEX idx_name (name);
